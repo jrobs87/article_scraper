@@ -5,38 +5,48 @@
   <meta charset="UTF-8">
   <!--Google Icon Font-->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Halant:300|Questrial&display=swap" rel="stylesheet">
+
+
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
- {{!-- mobile optimized --}}
+  <link rel="stylesheet" href="/css/main.css">
+  {{!-- mobile optimized --}}
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body>
-
   <nav>
     <div class="nav-wrapper black" style="padding: 0 2em 0 2em">
-      <a href="#!" class="brand-logo">Logo</a>
+      <a href="/" class="brand-logo">Mongo Scraper</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">Javascript</a></li>
-        <li><a href="mobile.html">Mobile</a></li>
+        <li><a href="/api/scrape" class="btn blue">Scrape Articles</a></li>
+        <li><a href="/api/clear" class="btn red">Clear Articles</a></li>
+        <li><a href="/saved">Saved Articles</a></li>
+        <li><a href="https://github.com/jrobs87/article_scraper" target="_blank">Github</a></li>
       </ul>
     </div>
   </nav>
 
-    <ul class="sidenav" id="mobile-demo">
-    <li><a href="sass.html">Sass</a></li>
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="/saved">Sass</a></li>
     <li><a href="badges.html">Components</a></li>
     <li><a href="collapsible.html">Javascript</a></li>
     <li><a href="mobile.html">Mobile</a></li>
   </ul>
-  
+
   {{{body}}}
 
   {{!-- js scripts --}}
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function () {
+
+    console.log('Good to go!') 
+  </script>
 </body>
 
 </html>
