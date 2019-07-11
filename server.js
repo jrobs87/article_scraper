@@ -13,9 +13,7 @@ app.use(express.static('public'))
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-mongoose.connect(MONGODB_URI);
-
-
+mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
 
 // Handlebars
 app.engine("handlebars",
@@ -36,6 +34,60 @@ app.get('/saved', function (req, res) {
 
 // API - Scrape
 app.get('/api/scrape', function (req, res) {
+// getting html body 
+axios.get("https://www.futurity.org/category/science-technology/")
+.then( (response) => {
+  console.log('Connected to target URL');
+  // console.group(response);
+
+  var $ = cheerio.load(response.data);
+console.log('Cheerio!')
+   // Now, we grab every h2 within an article tag, and do the following:
+   $("a").each(function(i, element) {
+
+    var result = {};
+
+    // Add the text and href of every link, and save them as properties of the result object
+    result.title = $(this).attr('title');
+    result.link = $(this).attr('href');
+    // .children('a')
+    // .attr('href')
+    // .attr("title");
+if(result.title) {
+  console.log(result);
+}
+
+   
+    // Save an empty result object
+    // var result = {};
+
+    // // Add the text and href of every link, and save them as properties of the result object
+    // result.title = $(this)
+    //   .children("a")
+    //   .text();
+    // result.link = $(this)
+    //   .children("a")
+    //   .attr("href");
+
+    // // Create a new Article using the `result` object built from scraping
+    // db.Article.create(result)
+    //   .then(function(dbArticle) {
+    //     // View the added result in the console
+    //     console.log(dbArticle);
+    //   })
+    //   .catch(function(err) {
+    //     // If an error occurred, log it
+    //     console.log(err);
+    //   });
+  });
+
+})
+.catch(function(err) {
+  // If an error occurred, log it
+  
+  console.log(err);
+  console.log('error\n------------------------------');
+});
   res.send('Scrape Articles Route').status(200).end();
 });
 
@@ -45,12 +97,15 @@ app.get('/api/clear', function (req, res) {
 });
 
 // API - Add Comment
-app.get('/saved', function (req, res) {
-  res.render('saved');
+app.post('/api/note-new', function (req, res) {
+  console.log('New note added')
+  // res.render('saved');
+  res.send('New Note')
 });
 
 // API - Delete Comment
-app.get('/saved', function (req, res) {
+app.delete('/api/note-delete', function (req, res) {
+  console.log('Note deleted')
   res.render('saved');
 });
 
