@@ -1,5 +1,5 @@
 const express = require('express')
-const exphbs  = require('express-handlebars')
+const exphbs = require('express-handlebars')
 const mongoose = require('mongoose')
 const db = require('./models');
 const cheerio = require('cheerio');
@@ -13,18 +13,18 @@ app.use(express.static('public'))
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 
-mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Handlebars
 app.engine("handlebars",
   exphbs({ defaultLayout: "main" })
 );
 app.set("view engine", "handlebars");
- 
+
 // Routes
 // HTML - Home
 app.get('/', function (req, res) {
-    res.render('home');
+  res.render('home');
 });
 
 // HTML - Saved
@@ -32,64 +32,83 @@ app.get('/saved', function (req, res) {
   res.render('saved');
 });
 
+var articles = ['hi'];
 // API - Scrape
 app.get('/api/scrape', function (req, res) {
-// getting html body 
-axios.get("https://www.futurity.org/category/science-technology/")
-.then( (response) => {
-  console.log('Connected to target URL');
-  // console.group(response);
-
-  var $ = cheerio.load(response.data);
-console.log('Cheerio!')
-   // Now, we grab every h2 within an article tag, and do the following:
-   $("a").each(function(i, element) {
-
-    var result = {};
-
-    // Add the text and href of every link, and save them as properties of the result object
-    result.title = $(this).attr('title');
-    result.link = $(this).attr('href');
-    // .children('a')
-    // .attr('href')
-    // .attr("title");
-if(result.title) {
-  console.log(result);
-}
-
-   
-    // Save an empty result object
-    // var result = {};
-
-    // // Add the text and href of every link, and save them as properties of the result object
-    // result.title = $(this)
-    //   .children("a")
-    //   .text();
-    // result.link = $(this)
-    //   .children("a")
-    //   .attr("href");
-
-    // // Create a new Article using the `result` object built from scraping
-    // db.Article.create(result)
-    //   .then(function(dbArticle) {
-    //     // View the added result in the console
-    //     console.log(dbArticle);
-    //   })
-    //   .catch(function(err) {
-    //     // If an error occurred, log it
-    //     console.log(err);
-    //   });
-  });
-
-})
-.catch(function(err) {
-  // If an error occurred, log it
   
-  console.log(err);
-  console.log('error\n------------------------------');
+  // getting html body 
+  axios.get("https://www.futurity.org/category/science-technology/")
+    .then((response) => {
+      console.log('Connected to target URL');
+      // console.group(response);
+
+      var $ = cheerio.load(response.data);
+      console.log('Cheerio!');
+      // Now, we grab every h2 within an article tag, and do the following:
+      $("a").each(function (i, element) {
+
+        const result = {};
+
+        // Add the text and href of every link, and save them as properties of the result object
+        result.title = $(this).attr('title');
+        result.link = $(this).attr('href');
+        articles.push(result);
+      
+        // .children('a')
+        // .attr('href')
+        // .attr("title");
+        // check for titles too short to be article headlines (halth and science were being included, etc)
+        if (result.title && result.title.length > 11) {
+          console.log(result);
+          console.log('');
+
+           // Create a new Article using the `result` object built from scraping
+        db.Article.create(result)
+        .then(function(dbArticle) {
+          // View the added result in the console
+          console.log(dbArticle);
+        })
+        .catch(function(err) {
+          // If an error occurred, log it
+          console.log(err);
+        });
+          // articles.push(result);
+        }
+
+
+        // Save an empty result object
+        // var result = {};
+
+        // // Add the text and href of every link, and save them as properties of the result object
+        // result.title = $(this)
+        //   .children("a")
+        //   .text();
+        // result.link = $(this)
+        //   .children("a")
+        //   .attr("href");
+
+        // // Create a new Article using the `result` object built from scraping
+        // db.Article.create(result)
+        //   .then(function(dbArticle) {
+        //     // View the added result in the console
+        //     console.log(dbArticle);
+        //   })
+        //   .catch(function(err) {
+        //     // If an error occurred, log it
+        //     console.log(err);
+        //   });
+      });
+
+    })
+    .catch(function (err) {
+      // If an error occurred, log it
+
+      console.log(err);
+      console.log('error\n------------------------------');
+    });
+  res.send(articles).status(200).end();
 });
-  res.send('Scrape Articles Route').status(200).end();
-});
+
 
 // API - Clear
 app.get('/api/clear', function (req, res) {
