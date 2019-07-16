@@ -23,7 +23,6 @@
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li><a href="/api/scrape" >Scrape Articles</a></li>
-        {{!-- <li><a href="/api/clear" class="btn red">Clear Articles</a></li> --}}
         <li><a href="#modal1" class="modal-trigger" id="clear">Clear Articles</a></li>
         {{!-- <li><a href="/saved">Saved Articles</a></li> --}}
          <li><a href="https://john-robertson-portfolio.herokuapp.com/" target="_blank">Portfolio</a></li>
@@ -90,12 +89,9 @@
       $('.modal').modal();
       $('.parallax').parallax();
       $('.sidenav').sidenav();
-      $('#clear').on('click', function () {
-
-      })
-
-
-    
+      {{!-- $('#clear').on('click', function () {
+        console.log('Articles cleared.')
+      }) --}}
       console.log('Good to go!')
     });
   </script>
