@@ -68,6 +68,7 @@
     </div>
     <br>
   </div>
+
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
     <div class="modal-content">
@@ -77,6 +78,20 @@
     <div class="modal-footer">
       <a href="#" class="modal-close waves-effect waves-green btn-flat btn-small white">Keep</a>
       <a href="/api/clear" class="modal-close waves-effect waves-green btn-small black">Clear</a>
+    </div>
+  </div>
+
+    <!-- Modal Structure -->
+  <div id="modal2" class="modal">
+    <div class="modal-content">
+      <h5>Add a Note...</h5>
+      Enter your note below to add to this article.
+      <br>
+     <textarea id="note-text" class="materialize-textarea"></textarea>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="modal-close waves-effect waves-green btn-flat btn-small white">Close</a>
+      <a href="#" class="modal-close waves-effect waves-green btn-small black note-add">Add</a>
     </div>
   </div>
 
@@ -94,6 +109,17 @@
       }) --}}
       console.log('Good to go!')
     });
+
+    $('.note').on('click', function() {
+      note = {};
+      note.id = $(this).attr('data-id');
+      console.log(note.id);
+
+      $('.note-add').on('click', () => {
+note.body = $('#note-text').val();
+        console.log(`Added note '${note.body}' to ${note.id}`);
+      });
+    })
   </script>
 </body>
 

@@ -15,8 +15,9 @@
                         {{#each data}}
                         <li class="article">
                             <h5 style="color: #E8C206">{{this.title}}</h5>
-                           <a class="btn black white-text article-link"href="{{this.link}}" target="_blank">READ</a>
-                            
+                            <a class="btn black white-text article-link" href="{{this.link}}" target="_blank">Read</a>
+                            <a class="btn black white-text article-link note modal-trigger" href="#modal2"
+                                style="margin-left: 1em" data-id={{this.id}}>Add Note</a>
                         </li>
                         {{/each}}
                     </ul>

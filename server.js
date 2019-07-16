@@ -43,14 +43,16 @@ app.get('/api/scrape', function (req, res) {
   axios.get("https://www.futurity.org/category/science-technology/")
     .then((response) => {
       console.log('Connected to target URL');
+
       var $ = cheerio.load(response.data);
-      console.log('Cheerio!');
       // Now, we grab every h2 within an article tag, and do the following:
       $("a:first-child").each(function (i, element) {
         const result = {};
+        result.note = 'hi';
         // Add the text and href of every link, and save them as properties of the result object
         result.title = $(this).attr('title');
         result.link = $(this).attr('href');
+        
         // check for titles too short to be article headlines (halth and science were being included, etc)
         if (result.title && result.link.length > 60) {
           // Create a new Article using the `result` object built from scraping
@@ -63,6 +65,7 @@ app.get('/api/scrape', function (req, res) {
               // If an error occurred, log it
               console.log(err);
             });
+            // db.Note.create(result.note = 'hi this is a note') // not there yet
         }
       })
     })
