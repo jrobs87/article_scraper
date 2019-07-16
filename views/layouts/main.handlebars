@@ -4,26 +4,27 @@
 <head>
   <meta charset="UTF-8">
   <!--Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Halant:300|Questrial&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Libre+Franklin|Oxygen:700&display=swap" rel="stylesheet">
 
   <!--Import materialize.css-->
   <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
   <link rel="stylesheet" href="/css/main.css">
   {{!-- mobile optimized --}}
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Futurity Scraper</title>
 </head>
 
 <body>
   <nav>
     <div class="nav-wrapper black" style="padding: 0 2em 0 2em">
-      <a href="/" class="brand-logo">Mongo Scraper</a>
+      <a href="/" class="brand-logo">Futurity Scraper</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="/api/scrape" class="btn-small blue">Scrape Articles</a></li>
+        <li><a href="/api/scrape" >Scrape Articles</a></li>
         {{!-- <li><a href="/api/clear" class="btn red">Clear Articles</a></li> --}}
-        <li><a href="#modal1" class="btn-small red modal-trigger" id="clear" >Clear Articles</a></li>
+        <li><a href="#modal1" class="modal-trigger" id="clear">Clear Articles</a></li>
         {{!-- <li><a href="/saved">Saved Articles</a></li> --}}
         <li><a href="https://github.com/jrobs87/article_scraper" target="_blank">GitHub</a></li>
       </ul>
@@ -31,39 +32,50 @@
   </nav>
 
   <ul class="sidenav" id="mobile-demo">
-    <li><a href="/saved">Sass</a></li>
-    <li><a href="badges.html">Components</a></li>
-    <li><a href="collapsible.html">Javascript</a></li>
-    <li><a href="mobile.html">Mobile</a></li>
+        <li><a href="/api/scrape" >Scrape Articles</a></li>
+        {{!-- <li><a href="/api/clear" class="btn red">Clear Articles</a></li> --}}
+        <li><a href="#modal1" class="modal-trigger" id="clear">Clear Articles</a></li>
+        {{!-- <li><a href="/saved">Saved Articles</a></li> --}}
+        <li><a href="https://github.com/jrobs87/article_scraper" target="_blank">GitHub</a></li>
   </ul>
 
-<div class="parallax-container center valign-wrapper">
-  <div class="container">
-    <div class="row">
-      <div class="col s12 white-text">
-        <h1 class="white-text">Futurity Article</h1>
-        <p>A modern responsive front-end framework based on Material Design</p>
-        <a class="waves-effect waves-light btn-large green">Get Started</a>
+  <div class="parallax-container center valign-wrapper">
+    <div class="container">
+      <div class="row">
+        <div class="col s12 white-text">
+          <h1 class="white-text">Science and Technology</h1>
+          <p>Click 'Get Started' to scrape science and technology articles from Futuriy, a leading research publication
+            from universities across the world.</p>
+          <a href="/api/scrape" class="waves-effect waves-light btn black-text" style="background: yellow"><strong>Get Started</strong></a>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <div class="parallax">
-    <img src="/img/news.jpg">
-  </div>
+
+    <div class="parallax">
+      <img src="/img/futurity.jpg">
+    </div>
   </div>
 
   {{{body}}}
 
-    <!-- Modal Structure -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col" style="color: white">
+        A web scraping utility built with Node.js, Mongo.js + Mongoose, & Cheerio.
+      </div>
+    </div>
+    <br>
+  </div>
+  <!-- Modal Structure -->
   <div id="modal1" class="modal">
     <div class="modal-content">
-      <h4>Clear these articles?</h4>
-      <p>This is a permanent action and cannot be undone.  Are you sure you want to continue?</p>
+      <h5>Clear these articles?</h5>
+      This is a permanent action and cannot be undone. Are you sure you want to continue?
     </div>
     <div class="modal-footer">
-      <a href="#" class="modal-close waves-effect waves-green btn blue" >Keep Articles</a>
-      <a href="/api/clear" class="modal-close waves-effect waves-green btn red">Clear Articles</a>
+      <a href="#" class="modal-close waves-effect waves-green btn-flat btn-small white">Keep</a>
+      <a href="/api/clear" class="modal-close waves-effect waves-green btn-small black">Clear</a>
     </div>
   </div>
 
@@ -73,15 +85,16 @@
   <script type="text/javascript" src="/js/materialize.min.js"></script>
   <script>
     $(document).ready(function () {
-       $('.modal').modal();
-        $('.parallax').parallax();
-$('#clear').on('click', function() {
-  
-})
+      $('.modal').modal();
+      $('.parallax').parallax();
+      $('.sidenav').sidenav();
+      $('#clear').on('click', function () {
+
+      })
 
 
-{{!-- window.location.replace("http://www.google.com"); --}}
-    console.log('Good to go!') 
+    
+      console.log('Good to go!')
     });
   </script>
 </body>

@@ -1,13 +1,37 @@
+html {
+    background: black;
+}
+
 body {
-    font-size: 1em;
-    font-family: 'Halant', serif;
+    font-size: 1.11em;
+    font-family: 'Libre Franklin', sans-serif;
+}
+
+h1, h2, h3 h4, h5 {
+    font-family: 'Oxygen', sans-serif;
 
 }
 
 .brand-logo {
-    /* font-family: 'Questrial', sans-serif; */
+    font-family: 'Oxygen', sans-serif;
 }
 
-h1, h3 {
-    /* font-family: 'Questrial', sans-serif; */
+#articles {
+    margin-top: 6%;
 }
+
+.article {
+    margin-bottom: 3em;
+    border-top: 1px solid white;
+}
+
+.btn {
+    border: none;
+    border-radius: 0;
+}
+
+.article-link {
+    margin-top: 1em;
+    border: 1px solid white;
+}
+

@@ -9,18 +9,14 @@
     <div class="container">
         <div class="row">
             <div class="col 12">
-
-                <div>
-                    <h1>Mongo + Cheerio</h1>
-                    <h3>Futurity Edition</h3>
-                </div>
-<br>
+                <br>
                 <div id="articles">
                     <ul class="people_list">
                         {{#each data}}
-                        <li>
-                            <h4>{{this.title}}</h4>
-                            <h5 class="btn black" ><a style="color: white" href="{{this.link}}" target="_blank">READ</a></h5>
+                        <li class="article">
+                            <h5 style="color: yellow">{{this.title}}</h5>
+                           <a class="btn black white-text article-link"href="{{this.link}}" target="_blank">READ</a>
+                            
                         </li>
                         {{/each}}
                     </ul>
