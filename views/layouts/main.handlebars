@@ -21,10 +21,11 @@
       <a href="/" class="brand-logo">Mongo Scraper</a>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a href="/api/scrape" class="btn blue">Scrape Articles</a></li>
-        <li><a href="/api/clear" class="btn red">Clear Articles</a></li>
-        <li><a href="/saved">Saved Articles</a></li>
-        <li><a href="https://github.com/jrobs87/article_scraper" target="_blank">Github</a></li>
+        <li><a href="/api/scrape" class="btn-small blue">Scrape Articles</a></li>
+        {{!-- <li><a href="/api/clear" class="btn red">Clear Articles</a></li> --}}
+        <li><a href="#modal1" class="btn-small red modal-trigger" id="clear" >Clear Articles</a></li>
+        {{!-- <li><a href="/saved">Saved Articles</a></li> --}}
+        <li><a href="https://github.com/jrobs87/article_scraper" target="_blank">GitHub</a></li>
       </ul>
     </div>
   </nav>
@@ -36,7 +37,35 @@
     <li><a href="mobile.html">Mobile</a></li>
   </ul>
 
+<div class="parallax-container center valign-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col s12 white-text">
+        <h1 class="white-text">Futurity Article</h1>
+        <p>A modern responsive front-end framework based on Material Design</p>
+        <a class="waves-effect waves-light btn-large green">Get Started</a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="parallax">
+    <img src="/img/news.jpg">
+  </div>
+  </div>
+
   {{{body}}}
+
+    <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Clear these articles?</h4>
+      <p>This is a permanent action and cannot be undone.  Are you sure you want to continue?</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="modal-close waves-effect waves-green btn blue" >Keep Articles</a>
+      <a href="/api/clear" class="modal-close waves-effect waves-green btn red">Clear Articles</a>
+    </div>
+  </div>
 
   {{!-- js scripts --}}
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
@@ -44,8 +73,16 @@
   <script type="text/javascript" src="/js/materialize.min.js"></script>
   <script>
     $(document).ready(function () {
+       $('.modal').modal();
+        $('.parallax').parallax();
+$('#clear').on('click', function() {
+  
+})
 
+
+{{!-- window.location.replace("http://www.google.com"); --}}
     console.log('Good to go!') 
+    });
   </script>
 </body>
 

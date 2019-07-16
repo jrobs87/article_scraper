@@ -24,7 +24,12 @@ app.set("view engine", "handlebars");
 // Routes
 // HTML - Home
 app.get('/', function (req, res) {
-  res.render('home');
+  db.Article.find(function (err, data) {
+    if (data.length === 0) {
+      console.log('/ route hit - no articles saved.');
+    }
+    res.render('home', { data: data });
+  })
 });
 
 // HTML - Saved
@@ -32,87 +37,52 @@ app.get('/saved', function (req, res) {
   res.render('saved');
 });
 
-var articles = ['hi'];
 // API - Scrape
 app.get('/api/scrape', function (req, res) {
-  
   // getting html body 
   axios.get("https://www.futurity.org/category/science-technology/")
     .then((response) => {
       console.log('Connected to target URL');
-      // console.group(response);
-
       var $ = cheerio.load(response.data);
       console.log('Cheerio!');
       // Now, we grab every h2 within an article tag, and do the following:
-      $("a").each(function (i, element) {
-
+      $("a:first-child").each(function (i, element) {
         const result = {};
-
         // Add the text and href of every link, and save them as properties of the result object
         result.title = $(this).attr('title');
         result.link = $(this).attr('href');
-        articles.push(result);
-      
-        // .children('a')
-        // .attr('href')
-        // .attr("title");
         // check for titles too short to be article headlines (halth and science were being included, etc)
-        if (result.title && result.title.length > 11) {
-          console.log(result);
-          console.log('');
-
-           // Create a new Article using the `result` object built from scraping
-        db.Article.create(result)
-        .then(function(dbArticle) {
-          // View the added result in the console
-          console.log(dbArticle);
-        })
-        .catch(function(err) {
-          // If an error occurred, log it
-          console.log(err);
-        });
-          // articles.push(result);
+        if (result.title && result.link.length > 60) {
+          // Create a new Article using the `result` object built from scraping
+          db.Article.create(result)
+            .then(function (dbArticle) {
+              // View the added result in the console
+              console.log(dbArticle);
+            })
+            .catch(function (err) {
+              // If an error occurred, log it
+              console.log(err);
+            });
         }
-
-
-        // Save an empty result object
-        // var result = {};
-
-        // // Add the text and href of every link, and save them as properties of the result object
-        // result.title = $(this)
-        //   .children("a")
-        //   .text();
-        // result.link = $(this)
-        //   .children("a")
-        //   .attr("href");
-
-        // // Create a new Article using the `result` object built from scraping
-        // db.Article.create(result)
-        //   .then(function(dbArticle) {
-        //     // View the added result in the console
-        //     console.log(dbArticle);
-        //   })
-        //   .catch(function(err) {
-        //     // If an error occurred, log it
-        //     console.log(err);
-        //   });
-      });
-
+      })
     })
+    .then(() => res.redirect('/'))
     .catch(function (err) {
       // If an error occurred, log it
-
-      console.log(err);
-      console.log('error\n------------------------------');
-    });
-  res.send(articles).status(200).end();
+      // console.log(err);
+      console.log('Error occurred.  Scrape failed.');
+    })
 });
 
 
 // API - Clear
 app.get('/api/clear', function (req, res) {
-  res.send('Clear Articles Route').status(200).end();
+  // drop the model Article from the collection
+  db.Article.remove({}, function (err) {
+    console.log('collection removed')
+  });
+  // send back home
+  res.redirect('/').status(200).end();
 });
 
 // API - Add Comment

@@ -4,12 +4,15 @@ var Schema = mongoose.Schema;
 var ArticleSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
+    index: true, // also isnt working.....
+    unique: true // doesn't appear to work - duplicates continue to save
   },
 
   link: {
     type: String,
-    required: true
+    required: true,
+    unique: true // doesn't appear to work - duplicates continue to save
   },
 
   note: {
